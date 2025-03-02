@@ -4,12 +4,14 @@ const router = express.Router();
 
 
 // send a message 
-router.post("/", async (req,res) => {
+router.post("/send", async (req,res) => {
     try {
-        const { sender, receiver, message } = req.body;
-
+        const { sender, receiver, content } = req.body;
+        if (!sender || !receiver || !content) {
+     res.status(201).json({message:"All feild are required!!"})
+ }
         // create a messgae 
-        const newMessage = new Message({ sender, reciver, message });
+        const newMessage = new Message({ sender, receiver, content });
         res.status(201).json({message:"✅ Message sent successfully",data:newMessage})
     } catch (error) {
           res.status(500).json({ message: "❌ Error sending message", error });
@@ -35,4 +37,4 @@ router.get("/:sender/:receiver", async (req, res) => {
     }
 })
 
-module.exports=router
+module.exports = router;

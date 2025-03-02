@@ -2,25 +2,24 @@ const mongoosse = require("mongoose");
 
 const messageSchema = new mongoosse.Schema({
     sender: {
-        type: String,
+        type: mongoosse.Schema.Types.ObjectId,
         ref: "User",
-        required: true,
+        required: true
     },
-    reciver: {
-        type: String,
+    receiver: {
+        type: mongoosse.Schema.Types.ObjectId,
         ref: "User",
-        required: true,
+        required: true
     },
-    message: {
+    content: {
         type: String,
-        ref: "User",
-        required: true,
+        required: true
     },
-    seen: {
-        type: Boolean,
-        default: false,
-    },
-}, { timestamps: true });
+    timestamp: {
+        type: Date,
+        default: Date.now
+    }
+});
 
 const Message = mongoosse.model("Message", messageSchema);
 
