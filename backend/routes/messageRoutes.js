@@ -12,6 +12,7 @@ router.post("/send", async (req,res) => {
  }
         // create a messgae 
         const newMessage = new Message({ sender, receiver, content });
+       await newMessage.save();
         res.status(201).json({message:"✅ Message sent successfully",data:newMessage})
     } catch (error) {
           res.status(500).json({ message: "❌ Error sending message", error });
